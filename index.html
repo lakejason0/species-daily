@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title>每日物种生成器</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="为每日物种生成图片">
+    <meta name="keywords" content="每日物种,生态学,安徽师范大学">
+    <meta name="author" content="Lakejason0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/index.css">
+    <link rel="stylesheet" type="text/css" href="/generator.css">
+    <link rel="preconnect" href="https://gstatic.loli.net" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.loli.net">
+</head>
+
+<div id='app'>
+    <header>
+        <div class="type"></div>
+        <div class="speciesdaily">
+            <h1 class="speciesdaily-title"><span>每</span><span>日</span><span>物</span><span>种</span></h1>
+            <h2 class="speciesdaily-subtitle">鸟类篇</h2>
+        </div>
+        <div class="metadata">
+            <span class="date">2023/4/15</span>
+            <span class="author">编辑：湖远星</span>
+        </div>
+    </header>
+    <main>
+        <div class="infobox">
+            <h2 class="infobox-title">物种名称</h2>
+            <span class="scientific-name">Oligocosta troglodytes</span>
+            <img id="species-image" class="circle" width="200" alt="物种图片"/>
+            <div class="taxonomy-info">
+                <div class="taxonomic-category" id="taxonomic-phylum-label"><span class="infobox-label">门：</span><span
+                        class="infobox-data" id="taxonomic-phylum-data"></span></div>
+                <div class="taxonomic-category" id="taxonomic-class-label"><span class="infobox-label">纲：</span><span
+                        class="infobox-data" id="taxonomic-class-data"></span></div>
+                <div class="taxonomic-category" id="taxonomic-order-label"><span class="infobox-label">目：</span><span
+                        class="infobox-data" id="taxonomic-order-data"></span></div>
+                <div class="taxonomic-category" id="taxonomic-family-label"><span class="infobox-label">科：</span><span
+                        class="infobox-data" id="taxonomic-family-data"></span></div>
+                <div class="taxonomic-category" id="taxonomic-genus-label"><span class="infobox-label">属：</span><span
+                        class="infobox-data" id="taxonomic-genus-data"></span></div>
+            </div>
+        </div>
+        <div class="content">
+        </div>
+        <div class="gallery">
+            <img class="gallery-image" id="gallery-image-1" width="200" height="130" alt="物种图片"  onerror="this.classList.add('error');"/>
+            <img class="gallery-image" id="gallery-image-2" width="200" height="130" alt="物种图片"  onerror="this.classList.add('error');"/>
+            <img class="gallery-image" id="gallery-image-3" width="200" height="130" alt="物种图片"  onerror="this.classList.add('error');"/>
+        </div>
+    </main>
+    <footer>
+        <div>合抱之木，生于毫末；九层之台，起于垒土；千里之行，始于足下。</div>
+        <div>——老子《道德经》</div>
+    </footer>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://unpkg.com/modern-screenshot"></script>
+<script src="https://unpkg.com/marked"></script>
+<script src="https://unpkg.com/dompurify"></script>
+<script src="index.js"></script>
+</html>

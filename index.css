@@ -1,0 +1,254 @@
+@font-face {
+    font-family: '汉仪魁肃';
+    src: local('汉仪魁肃');
+    font-weight: 100;
+}
+
+body {
+    margin: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 700px;
+}
+
+header {
+    background-color: var(--theme-color);
+    background-image: var(--header-background);
+    background-repeat: no-repeat;
+    background-position: center;
+    min-width: 700px;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    gap: 2em;
+}
+
+.speciesdaily {
+    flex-grow: 0;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.speciesdaily-title {
+    margin: 10px;
+}
+.speciesdaily-title span {
+    background-color: #fff;
+    display: inline-flex;
+    margin: 0 5px;
+    border-radius: 10px;
+    font-family: 'Ma Shan Zheng', '汉仪魁肃', cursive;
+    font-size: 1.5em;
+    width: 1.3em;
+    height: 1.3em;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+}
+.speciesdaily-subtitle {
+    font-weight: 500;
+    margin: 0;
+    font-family: "LXGW WenKai GB Screen", cursive;
+    font-size: 1.2em;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    min-width: 250px;
+}
+.speciesdaily-subtitle::before,.speciesdaily-subtitle::after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    background: #555;
+    top: 50%;
+}
+.speciesdaily-subtitle::before{
+    margin-left: -10px;
+    transform: translateX(-100%);
+}
+.speciesdaily-subtitle::after{
+    margin-left: 10px;
+}
+
+.metadata {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.metadata span {
+    font-family: "LXGW WenKai GB Screen", cursive;
+    font-size: 1.2em;
+}
+
+.type {
+    border-radius: 50%;
+    border: solid 5px #000;
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    font-family: "LXGW WenKai GB Screen";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-image: var(--type-image);
+    background-size: 80px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.type span {
+    font-size: 2em;
+}
+
+main {
+    border-radius: 10px;
+    border: dashed 5px #000;
+    margin: 15px;
+    padding: 15px;
+    min-width: 640px;
+    max-width: 640px;
+    background-image: var(--content-background-image);
+    background-color: var(--theme-color);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.infobox {
+    /* float: right; */
+    /* border: solid 1px #000;
+    border-radius: 3px; */
+    /* background-color: #fff; */
+    display: block;
+}
+
+.infobox-title {
+    /* text-align: center; */
+    margin: 0;
+    padding: 5px 0;
+    font-size: 1.3em;
+    display: inline-block;
+    /* background-color: var(--theme-color-derived); */
+}
+
+#species-image {
+    display: block;
+    width: 200px;
+    height: 200px;
+    float: right;
+}
+
+#species-image.circle {
+    border-radius: 50%;
+    border: solid 5px #fff;
+}
+
+.scientific-name {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    color: var(--theme-text-color);
+/*     text-align: center; */
+}
+
+.taxonomic-category {
+    /* padding: 5px 5px; */
+    color: var(--theme-text-color);
+}
+
+.taxonomic-category:nth-child(1) {
+    padding-top: 0;
+    margin-top: 0;
+}
+/* 
+.taxonomic-category:nth-child(odd) {
+    background-color: #eee;
+}
+
+.taxonomic-category:nth-child(even) {
+    background-color: #ddd;
+} */
+
+.gallery {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.gallery-image {
+    border-radius: 20px;
+    border: solid 2px #fff;
+}
+
+footer {
+    background-image: url('data:image/svg+xml,%3Csvg width="100" height="20" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z" fill="%239C92AC" fill-opacity="0.4" fill-rule="evenodd"/%3E%3C/svg%3E'), linear-gradient(var(--theme-color), var(--theme-color-derived));
+    font-family: "LXGW WenKai GB Screen";
+    color: var(--theme-text-color);
+    font-weight: 700;
+    min-width: 700px;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+}
+img {
+    display: inline-block;
+    transform: scale(1);
+}
+img::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: #f5f5f5 url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M304.128 456.192c48.64 0 88.064-39.424 88.064-88.064s-39.424-88.064-88.064-88.064-88.064 39.424-88.064 88.064 39.424 88.064 88.064 88.064zm0-116.224c15.36 0 28.16 12.288 28.16 28.16s-12.288 28.16-28.16 28.16-28.16-12.288-28.16-28.16 12.288-28.16 28.16-28.16z' fill='%23e6e6e6'/%3E%3Cpath d='M887.296 159.744H136.704C96.768 159.744 64 192 64 232.448v559.104c0 39.936 32.256 72.704 72.704 72.704h198.144L500.224 688.64l-36.352-222.72 162.304-130.56-61.44 143.872 92.672 214.016-105.472 171.008h335.36C927.232 864.256 960 832 960 791.552V232.448c0-39.936-32.256-72.704-72.704-72.704zm-138.752 71.68v.512H857.6c16.384 0 30.208 13.312 30.208 30.208v399.872L673.28 408.064l75.264-176.64zM304.64 792.064H165.888c-16.384 0-30.208-13.312-30.208-30.208v-9.728l138.752-164.352 104.96 124.416-74.752 79.872zm81.92-355.84l37.376 228.864-.512.512-142.848-169.984c-3.072-3.584-9.216-3.584-12.288 0L135.68 652.8V262.144c0-16.384 13.312-30.208 30.208-30.208h474.624L386.56 436.224zm501.248 325.632c0 16.896-13.312 30.208-29.696 30.208H680.96l57.344-93.184-87.552-202.24 7.168-7.68 229.888 272.896z' fill='%23e6e6e6'/%3E%3C/svg%3E") no-repeat center / 50% 50%;
+    color: transparent;
+}
+img::after {
+    content: attr(alt);
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%;
+    line-height: 2;
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+:root {
+    --theme-color: var(--theme-color-bird);
+    --theme-color-derived: var(--theme-color-derived-bird);
+    --theme-text-color: var(--theme-text-color-bird);
+    --theme-color-bird: #bdd7ee;
+    --theme-color-derived-bird: #5797d1;
+    --theme-text-color-bird: #0f4474;
+    --theme-color-insect: #ffe699;
+    --theme-color-derived-insect: #d6a912;
+    --theme-text-color-insect: #775900;
+    --theme-color-plant: #c7e1b5;
+    --theme-color-derived-plant: #548235;
+    --theme-text-color-plant: #276300;
+    --type-image: var(--type-image-bird);
+    --type-image-bird: url(static/bird.png);
+    --type-image-insect: url(static/cricket.png);
+    --type-image-plant: url(static/plant.png);
+    --content-background-image: url(static/content-background.png);
+    --header-background: var(--header-background-bird);
+    --header-background-bird: url(static/header-bird.png);
+    --header-background-insect: url(static/header-insect.png);
+    --header-background-plant: url(static/header-plant.png);
+}
