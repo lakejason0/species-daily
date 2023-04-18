@@ -46,6 +46,7 @@ Lakeus.initGenerator = function() {
         "species-daily-generator-gallery-image-2": "图库图片2",
         "species-daily-generator-gallery-image-3": "图库图片3",
         'species-daily-generator-export': '导出',
+        'species-daily-generator-import': "导入",
         'species-daily-generator-apply': '应用',
         'species-daily-generator-save-as-image': '保存为图片',
     }
@@ -190,15 +191,6 @@ Lakeus.initGenerator = function() {
                 $("#taxonomic-genus-data").text(v);
             }
         },
-        "species-image": {
-            fieldset: "species-daily-content-area",
-            input: "image",
-            default: null,
-            value: null,
-            apply: function(name, v){
-                $("#species-image").attr('src', v);
-            }
-        },
         "content": {
             fieldset: "species-daily-content-area",
             input: "textarea",
@@ -206,6 +198,15 @@ Lakeus.initGenerator = function() {
             value: '请在此处输入正文\n\n换两行是分段',
             apply: function(name, v){
                 $(".content").html(DOMPurify.sanitize(marked.parse(v),{KEEP_CONTENT:true}));
+            }
+        },
+        "species-image": {
+            fieldset: "species-daily-content-area",
+            input: "image",
+            default: null,
+            value: null,
+            apply: function(name, v){
+                $("#species-image").attr('src', v);
             }
         },
         "gallery-image-1": {
@@ -265,7 +266,7 @@ Lakeus.initGenerator = function() {
             case 'enum':
                 var radioGroup = '';
                 $.each(configContent.enumValues, function (k, v){
-                    radioGroup += '<label class="species-daily-generator-input-radio-group"><input class="species-daily-generator-input-radio" type="radio" name="' + configName + '" id="species-daily-generator-input-'+ configName + '-' + v + '" value="'+ v + '"' + (configContent.default==v?'checked':'') + '>' + Lakeus.t("species-daily-generator-"+configName+"-"+v)+'</label>';
+                    radioGroup += '<label class="species-daily-generator-input-radio-group"><input class="species-daily-generator-input-radio" type="radio" name="' + configName + '" id="species-daily-generator-input-'+ configName + '-' + v + '" value="'+ v + '"' + (configContent.value==v?'checked':'') + '>' + Lakeus.t("species-daily-generator-"+configName+"-"+v)+'</label>';
                 });
                 configElement += 
                     '<label>' +
@@ -277,21 +278,21 @@ Lakeus.initGenerator = function() {
                 configElement +=
                 '<label>' +
                     Lakeus.t('species-daily-generator-'+configName) +
-                    '<input type="text" class="species-daily-generator-input-text" name="' + configName + '" id="species-daily-generator-input-' + configName + '" value="' + configContent.default + '" />' +
+                    '<input type="text" class="species-daily-generator-input-text" name="' + configName + '" id="species-daily-generator-input-' + configName + '" value="' + configContent.value + '" />' +
                 '<label>';
                 break;
             case 'textarea':
                 configElement +=
                 '<label>' +
                     Lakeus.t('species-daily-generator-'+configName) +
-                    '<textarea class="species-daily-generator-input-textarea" name="' + configName + '" id="species-daily-generator-input-' + configName + '" value="' + configContent.default + '"></textarea>' +
+                    '<textarea class="species-daily-generator-input-textarea" name="' + configName + '" id="species-daily-generator-input-' + configName + '">' + configContent.value + '</textarea>' +
                 '<label>';
                 break;
             case 'image':
                 configElement +=
                 '<label>' +
                     Lakeus.t('species-daily-generator-'+configName) +
-                    '<input accept="image/*" type="file" class="species-daily-generator-input-file" name="' + configName + '" id="species-daily-generator-input-' + configName + '" value="' + configContent.default + '" />' +
+                    '<input accept="image/*" type="file" class="species-daily-generator-input-file" name="' + configName + '" id="species-daily-generator-input-' + configName + '" value="' + configContent.value + '" />' +
                 '</label>'
                 break;
 
@@ -300,7 +301,7 @@ Lakeus.initGenerator = function() {
         return configElement;
     }
 
-    function constructThemeDesigner() {
+    function constructGenerator() {
         $("body").append(
             '<div id="species-daily-generator">'+
                 '<div id="species-daily-generator-portlet" aria-labelledby="species-daily-generator-modal-button">' +
@@ -312,6 +313,8 @@ Lakeus.initGenerator = function() {
                             constructGeneratorBody() +
                             '<div id="species-daily-generator-action-buttons">' +
                                 '<button type="button" id="species-daily-generator-export-button" class="species-daily-generator-action-button">' + Lakeus.t("species-daily-generator-export") +
+                                '</button>' +
+                                '<button type="button" id="species-daily-generator-import-button" class="species-daily-generator-action-button">' + Lakeus.t("species-daily-generator-import") +
                                 '</button>' +
                                 /*
                                 '<button type="button" id="species-daily-generator-apply-button" class="species-daily-generator-action-button">' + Lakeus.t("species-daily-generator-apply") +
@@ -336,15 +339,38 @@ Lakeus.initGenerator = function() {
         })
         $("#species-daily-generator-export-button").on("click", function (e) {
             e.preventDefault;
-            content=''
+            content={}
             $.each(Lakeus.configList, function (k, v) {
-                content+='--'+k+'--\n'+v.value+'\n'+'--'+k+'--\n'
+                content[k] = v.value;
             })
             var link = document.createElement('a')
-            link.download = '每日物种'+ date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +'.txt'
-            var blob = new Blob([content])
+            link.download = '每日物种'+ date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +'.json'
+            var blob = new Blob([JSON.stringify(content)])
             link.href = URL.createObjectURL(blob);
             link.click()
+        })
+        $("#species-daily-generator-import-button").on("click", function(e){
+            e.preventDefault;
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            input.addEventListener('change', function(e){
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.addEventListener('load', function(){
+                    const jsonData = JSON.parse(reader.result)
+                    $.each(jsonData, function(k, v){
+                        Lakeus.configList[k].value = v;
+                    })
+                    $.each(Lakeus.configList, function(k, v){
+                        v.apply(k, v.value)
+                    })
+                    $("#species-daily-generator").remove()
+                    constructGenerator();
+                });
+                reader.readAsText(file)
+            });
+            input.click();
         })
         $("#species-daily-generator-portlet-body").on("submit",function (e) { e.preventDefault; });
         $.each(Lakeus.configList, function (k, v) {
@@ -379,7 +405,7 @@ Lakeus.initGenerator = function() {
             
         });
     }
-    constructThemeDesigner();
+    constructGenerator();
     console.log("[Lakeus] 生成器加载完毕。");
 }
 
