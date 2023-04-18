@@ -311,9 +311,9 @@ Lakeus.initGenerator = function() {
                             '<h1 id="species-daily-generator-title">' + Lakeus.t("species-daily-generator") + '</h1>' +
                             constructGeneratorBody() +
                             '<div id="species-daily-generator-action-buttons">' +
-                                /*
                                 '<button type="button" id="species-daily-generator-export-button" class="species-daily-generator-action-button">' + Lakeus.t("species-daily-generator-export") +
                                 '</button>' +
+                                /*
                                 '<button type="button" id="species-daily-generator-apply-button" class="species-daily-generator-action-button">' + Lakeus.t("species-daily-generator-apply") +
                                 '</button>' +
                                 */
@@ -333,6 +333,18 @@ Lakeus.initGenerator = function() {
                 link.href = dataUrl
                 link.click()
             })
+        })
+        $("#species-daily-generator-export-button").on("click", function (e) {
+            e.preventDefault;
+            content=''
+            $.each(Lakeus.configList, function (k, v) {
+                content+='--'+k+'--\n'+v.value+'\n'+'--'+k+'--\n'
+            })
+            var link = document.createElement('a')
+            link.download = '每日物种'+ date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +'.txt'
+            var blob = new Blob([content])
+            link.href = URL.createObjectURL(blob);
+            link.click()
         })
         $("#species-daily-generator-portlet-body").on("submit",function (e) { e.preventDefault; });
         $.each(Lakeus.configList, function (k, v) {
