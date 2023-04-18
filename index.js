@@ -63,11 +63,10 @@ Lakeus.initGenerator = function() {
             enumValues: ["bird", "insect", "plant"],
             default: "bird",
             value: "bird",
-            apply: function(name, e) {
+            apply: function(name, v) {
                 $("#species-daily-generator-"+name).remove();
                 var styleElement = '<style class="species-daily-generator-style" id="species-daily-generator' + name + '">\n'
-                console.log(e.target.value)
-                switch(e.target.value) {
+                switch(v) {
                     case 'insect':
                         styleElement += `
 :root {
@@ -115,8 +114,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: "" + date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate(),
             value: "" + date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate(),
-            apply: function(name, e) {
-                $(".date").text(e.target.value);
+            apply: function(name, v) {
+                $(".date").text(v);
             },
         },
         "author": {
@@ -124,8 +123,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: '编辑：',
             value: '编辑：',
-            apply: function(name, e){
-                $(".author").text(e.target.value);
+            apply: function(name, v){
+                $(".author").text(v);
             }
         },
         "species": {
@@ -133,8 +132,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: '物种名称',
             value: '物种名称',
-            apply: function(name, e){
-                $(".infobox-title").text(e.target.value);
+            apply: function(name, v){
+                $(".infobox-title").text(v);
             }
         },
         "scientific-name": {
@@ -142,8 +141,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: "Scientific name",
             value: "Scientific name",
-            apply: function(name, e){
-                $(".scientific-name").text(e.target.value);
+            apply: function(name, v){
+                $(".scientific-name").text(v);
             }
         },
         "taxonomic-phylum": {
@@ -151,8 +150,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: "",
             value: "",
-            apply: function(name, e){
-                $("#taxonomic-phylum-data").text(e.target.value);
+            apply: function(name, v){
+                $("#taxonomic-phylum-data").text(v);
             }
         },
         "taxonomic-class": {
@@ -160,8 +159,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: "",
             value: "",
-            apply: function(name, e){
-                $("#taxonomic-class-data").text(e.target.value);
+            apply: function(name, v){
+                $("#taxonomic-class-data").text(v);
             }
         },
         "taxonomic-order": {
@@ -169,8 +168,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: "",
             value: "",
-            apply: function(name, e){
-                $("#taxonomic-order-data").text(e.target.value);
+            apply: function(name, v){
+                $("#taxonomic-order-data").text(v);
             }
         },
         "taxonomic-family": {
@@ -178,8 +177,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: "",
             value: "",
-            apply: function(name, e){
-                $("#taxonomic-family-data").text(e.target.value);
+            apply: function(name, v){
+                $("#taxonomic-family-data").text(v);
             }
         },
         "taxonomic-genus": {
@@ -187,8 +186,8 @@ Lakeus.initGenerator = function() {
             input: "text",
             default: "",
             value: "",
-            apply: function(name, e){
-                $("#taxonomic-genus-data").text(e.target.value);
+            apply: function(name, v){
+                $("#taxonomic-genus-data").text(v);
             }
         },
         "species-image": {
@@ -196,13 +195,8 @@ Lakeus.initGenerator = function() {
             input: "image",
             default: null,
             value: null,
-            apply: function(name, e){
-                var file = e.target.files[0];
-                const reader = new FileReader();
-                reader.addEventListener('load', function(e){
-                    document.getElementById("species-image").src = e.target.result;
-                })
-                reader.readAsDataURL(file);
+            apply: function(name, v){
+                $("#species-image").attr('src', v);
             }
         },
         "content": {
@@ -210,8 +204,8 @@ Lakeus.initGenerator = function() {
             input: "textarea",
             default: '请在此处输入正文\n\n换两行是分段',
             value: '请在此处输入正文\n\n换两行是分段',
-            apply: function(name, e){
-                $(".content").html(DOMPurify.sanitize(marked.parse(e.target.value),{KEEP_CONTENT:true}));
+            apply: function(name, v){
+                $(".content").html(DOMPurify.sanitize(marked.parse(v),{KEEP_CONTENT:true}));
             }
         },
         "gallery-image-1": {
@@ -219,13 +213,8 @@ Lakeus.initGenerator = function() {
             input: "image",
             default: null,
             value: null,
-            apply: function(name, e){
-                var file = e.target.files[0];
-                const reader = new FileReader();
-                reader.addEventListener('load', function(e){
-                    document.getElementById("gallery-image-1").src = e.target.result;
-                })
-                reader.readAsDataURL(file);
+            apply: function(name, v){
+                $("#gallery-image-1").attr('src', v);
             }
         },
         "gallery-image-2": {
@@ -233,13 +222,8 @@ Lakeus.initGenerator = function() {
             input: "image",
             default: null,
             value: null,
-            apply: function(name, e){
-                var file = e.target.files[0];
-                const reader = new FileReader();
-                reader.addEventListener('load', function(e){
-                    document.getElementById("gallery-image-2").src = e.target.result;
-                })
-                reader.readAsDataURL(file);
+            apply: function(name, v){
+                $("#gallery-image-2").attr('src', v);
             }
         },
         "gallery-image-3": {
@@ -247,13 +231,8 @@ Lakeus.initGenerator = function() {
             input: "image",
             default: null,
             value: null,
-            apply: function(name, e){
-                var file = e.target.files[0];
-                const reader = new FileReader();
-                reader.addEventListener('load', function(e){
-                    document.getElementById("gallery-image-3").src = e.target.result;
-                })
-                reader.readAsDataURL(file);
+            apply: function(name, v){
+                $("#gallery-image-3").attr('src', v);
             }
         },
     }
@@ -362,23 +341,28 @@ Lakeus.initGenerator = function() {
                     $.each(v.enumValues, function (k1, v1){
                         $("#species-daily-generator-input-"+k+'-'+v1).on('input', function (e){
                             Lakeus.configList[k].value = e.target.value;
-                            v.apply(k, e);
+                            v.apply(k, e.target.value);
                         })
                     })
-                    v.apply(k, {target:{value:v.value}})
+                    v.apply(k, v.value)
                     break;
                 case 'image':
                     $("#species-daily-generator-input-"+k).on('input', function (e){
-                        Lakeus.configList[k].value = e.target.value;
-                        v.apply(k, e);
+                        var file = e.target.files[0];
+                        const reader = new FileReader();
+                        reader.addEventListener('load', function(e){
+                            Lakeus.configList[k].value = e.target.result;
+                            v.apply(k, e.target.result);
+                        })
+                        reader.readAsDataURL(file);
                     })
                     break;
                 default:
                     $("#species-daily-generator-input-"+k).on('input', function (e){
                         Lakeus.configList[k].value = e.target.value;
-                        v.apply(k, e);
+                        v.apply(k, e.target.value);
                     })
-                    v.apply(k, {target:{value:v.value}})
+                    v.apply(k, v.value);
             }
             
         });
