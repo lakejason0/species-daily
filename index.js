@@ -35,7 +35,7 @@ Lakeus.initGenerator = function() {
         'species-daily-content-area': "内容区",
         "species-daily-generator-species": "物种名称（中文）",
         "species-daily-generator-species-image": "物种头图",
-        "species-daily-generator-scientific-name": "学名（拉丁文）",
+        "species-daily-generator-scientific-name": "学名（拉丁文，斜体部分用星号*包起来）",
         "species-daily-generator-taxonomic-phylum": "门",
         "species-daily-generator-taxonomic-class": "纲",
         "species-daily-generator-taxonomic-order": "目",
@@ -140,10 +140,10 @@ Lakeus.initGenerator = function() {
         "scientific-name": {
             fieldset: "species-daily-content-area",
             input: "text",
-            default: "Scientific name",
-            value: "Scientific name",
+            default: "*Scientific name*",
+            value: "*Scientific name*",
             apply: function(name, v){
-                $(".scientific-name").text(v);
+                $(".scientific-name").html(DOMPurify.sanitize(marked.parse(v),{KEEP_CONTENT:true}));
             }
         },
         "taxonomic-phylum": {
